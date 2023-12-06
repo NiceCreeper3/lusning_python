@@ -112,8 +112,8 @@ def many_squares(antal, størrelse, afstand, use_turtel):
 
     for x in range(antal):
         square(størrelse, use_turtel)
-        turtal.right(45)
-        turtal.forward(afstand)
+        use_turtel.right(45)
+        use_turtel.forward(afstand)
 
 #den(4)
 def make_swerel(swerels, line_length, use_turtel):
