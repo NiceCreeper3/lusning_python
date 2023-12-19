@@ -54,7 +54,7 @@ Fortsæt derefter med den næste fil.
 """
 
 
-class miner():
+class Miner:
 
     def __init__(self, sleepiness, thirst, hunger, whisky, gold):
         self._sleepiness = sleepiness
@@ -87,7 +87,6 @@ class miner():
         # checks if morris is daed
         if self._sleepiness >= 100 or self._thirst >= 100 or self._hunger >= 100 or self._whisky >= 10:
             self._miner_has_died()
-
 
     def _miner_has_died(self):
         print("[morris is dead]")
@@ -129,15 +128,13 @@ class miner():
         print("[morris has drint]")
 
 
-morris = miner(0, 0, 0, 0, 0)
+morris = Miner(0, 0, 0, 0, 0)
 
 turns = 0
-while turns != 1000 and morris.is_alive:
+while turns >= 1000 and morris.is_alive:
     turns += 1
     print(f" it is trun {turns} {morris} ", end="")
     morris.what_to_do()
-
-
 
 print("end total" + str(morris))
 # gold = 1470
