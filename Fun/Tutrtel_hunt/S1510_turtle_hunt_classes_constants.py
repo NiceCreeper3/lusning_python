@@ -95,7 +95,7 @@ class Alexander(turtle.Turtle):
         # positions[0] is the coordinate tuple of the prey. positions[0][0] is the x-coordinate of the prey.
         # positions[1], positions[2], positions[3] refer to the hunters.
         # for example is positions[3][1] the y-coordinate of the third hunter.
-        #
+        # i
         # short hand positions[who] [return x or y] 0 = X and 1 = Y
 
 
