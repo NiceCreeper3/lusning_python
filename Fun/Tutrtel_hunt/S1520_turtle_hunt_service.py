@@ -29,6 +29,6 @@ def direction(start_position, end_position):
 #            N
 #            |
 #   180° W --o-- E 0°
-#            |
-#            S
-#           90°
+#            |\
+#            S ES
+#           90°  45°

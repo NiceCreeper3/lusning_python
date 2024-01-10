@@ -80,6 +80,7 @@ from S1520_turtle_hunt_service import distance, direction  # inports the distanc
 prey_degree_min = -5
 prey_degree_max = 1
 prey_comfurt_distance = 100
+round_to_new_degree = 2
 
 
 class Alexander(turtle.Turtle):
@@ -88,6 +89,7 @@ class Alexander(turtle.Turtle):
     def __init__(self):
         super().__init__()  # Here, this is equivalent to turtle.Turtle.__init__(self)
         self.orientation = 0  # used to keep track of the turtle's current orientation (the direction it is heading)
+        self._Previse_oritason = 0
 
     def rotate_prey(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
         # self: the turtle that shall be rotated
@@ -98,37 +100,47 @@ class Alexander(turtle.Turtle):
         # i
         # short hand positions[who] [return x or y] 0 = X and 1 = Y
 
-
         # Example for use of the service functions distance() and direction
-        print(f'{distance(positions[0], positions[1])=}   {direction(positions[0], positions[1])=}')  # print distance and direction from prey to hunter1
+        # print(f'{distance(positions[0], positions[1])=}   {direction(positions[0], positions[1])=}')  # print distance and direction from prey to hunter1
 
         degree = random.randint(prey_degree_min, prey_degree_max)
 
+        # checks if a hunter is nere. and if it is then prey move ind the opesid deregson of hunter
         for hunt in positions[1:]:
             if distance(positions[0], hunt) <= prey_comfurt_distance:
-                degree -= direction(hunt, positions[0]) # (no work) is suposed to gove ind the opesed dregsen of hunter. but insted just spins
-                break
+                degree -= direction(hunt, positions[0])
+                break  # brackes the for loop so as not to move ind to many direcsens
 
         print(f"[{degree}:degree]   [{math.trunc(degree)}:int degree]")
 
-        # degree = 3 When the turtle rotates the same amount each turn,  it will just run in a circle. Make this function smarter!
-        self.orientation += degree # adds the degree to orientation
-        self.orientation %= 360 # makes orientation + degree a diregsen. aka a orientation
+        self.orientation += degree  # adds the degree to orientation
+        self.orientation %= 360  # makes orientation + degree a diregsen. aka a orientation
         # print(self.orientation)
-        # return math.trunc(degree)
         return degree
 
     def rotate_hunter(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
         # Example for use of the service functions distance() and direction
         # print(f'{distance(self.position(), positions[0])=}   {direction(self.position(), positions[0])=}')  # print distance and direction from the current hunter to the prey
 
-        print(self.position)
-        # to woek this needs its oven posision
-        degree = direction(self.position, positions[0]) # makes it so hunter is facing towords prey
+        direction_to_prey = direction(self.position(), positions[0])
 
-        #degree = -0.5  # When the turtle rotates the same amount each turn,  it will just run in a circle. Make this function smarter!
+        degree = 0
+
+        # get it so it reamberes previes oriantason and the does mathe to acount four the new posin. and does not just spin
+        if 0 <= self._Previse_oritason:
+            degree = direction_to_prey - self._Previse_oritason
+        elif 0 > self._Previse_oritason:
+            degree = direction_to_prey + self._Previse_oritason
+
+        print()
+        print(f"\n direction [{direction_to_prey}]"
+              f"\n previes direction [{self._Previse_oritason}]"
+              f"\n degree [{degree}]")
+
+        # degree = -0.5  # When the turtle rotates the same amount each turn,  it will just run in a circle. Make this function smarter!
         self.orientation += degree
         self.orientation %= 360
+        self._Previse_oritason = direction_to_prey
         # print(self.orientation)
         return degree
 
@@ -153,7 +165,3 @@ random.seed(2)  # use seed() if you want reproducible random numbers for debuggi
 
 class1 = Alexander  # (red prey) Replace PlayerName1 by your own class name here.
 class2 = Alexander  # (green prey) For testing your code, replace PlayerName1 by your own class name here. Later replace this by your sparring partner's class name.
-
-
-# make hunteres chase to reathe the preys positon
-# make prey gove ind the opeside dregsen of a hunter that is a serten amount of pix to close. when there are not to close then have prey ithere go (random deragsen, straight, curkel)
