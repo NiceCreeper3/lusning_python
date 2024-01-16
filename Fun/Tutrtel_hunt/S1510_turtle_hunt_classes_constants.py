@@ -124,6 +124,7 @@ class Alexander(turtle.Turtle):
 
         direction_to_prey = direction(self.position(), positions[0])
 
+        # get it so it reamberes previes oriantason and the does mathe to acount four the new posin. and does not just spin
         degree = 0
 
         # get it so it reamberes previes oriantason and the does mathe to acount four the new posin. and does not just spin
@@ -145,15 +146,34 @@ class Alexander(turtle.Turtle):
         return degree
 
 
-#  Insert the code of your sparring partner's turtle class here:
-#
-#
-#
-#
+class Uli_1(turtle.Turtle):
+
+    def __init__(self):
+        super().__init__()  # Here, this is equivalent to turtle.Turtle.__init__(self)
+        self.orientation = 0  # used to keep track of the turtle's current orientation (the direction it is heading)
+
+    def rotate_prey(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
+        hunter_distance = 99999
+        for hunter in [1, 2, 3]:
+            if distance(positions[0], positions[hunter]) < hunter_distance:
+                hunter_distance = distance(positions[0], positions[hunter])
+                closest_hunter = hunter
+        new_prey_direction = direction(positions[closest_hunter], positions[0])  # direction from closest hunter to prey
+        degree = new_prey_direction - self.orientation
+        self.orientation += degree
+        self.orientation %= 360
+        return degree
+
+    def rotate_hunter(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
+        prey_direction = direction(self.position(), positions[0])  # direction from current hunter to prey
+        degree = prey_direction - self.orientation
+        self.orientation += degree
+        self.orientation %= 360
+        return degree
 
 
 # change these global constants only for debugging purposes:
-MAX_TURNS = 100       # Maximum number of turns in a hunt.                           In competition: probably 200.
+MAX_TURNS = 200       # Maximum number of turns in a hunt.                           In competition: probably 200.
 ROUNDS = 1            # Each player plays the prey this often.                       In competition: probably 10.
 STEP_SIZE = 3         # Distance each turtle moves in one turn.                      In competition: probably 3.
 SPEED = 0             # Fastest: 10, slowest: 1, max speed: 0.                       In competition: probably 0.
@@ -164,4 +184,4 @@ random.seed(2)  # use seed() if you want reproducible random numbers for debuggi
 
 
 class1 = Alexander  # (red prey) Replace PlayerName1 by your own class name here.
-class2 = Alexander  # (green prey) For testing your code, replace PlayerName1 by your own class name here. Later replace this by your sparring partner's class name.
+class2 = Uli_1  # (green prey) For testing your code, replace PlayerName1 by your own class name here. Later replace this by your sparring partner's class name.

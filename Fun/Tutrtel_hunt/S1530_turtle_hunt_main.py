@@ -47,7 +47,7 @@ def init_positions(turtles_):  # move turtles to their initial random positions
         turtle_.pendown()  # draw while moving from now on
 
 
-def hunt(prey_class, hunter_class, color):  # execute the hunt
+def hunt(hunter_class, prey_class, color):  # execute the hunt
     # initialize screen:
     screen = turtle.Screen()
     screen.setup(2 * MAX_POS, 2 * MAX_POS)
@@ -92,8 +92,8 @@ def hunt(prey_class, hunter_class, color):  # execute the hunt
 score1 = score2 = 0
 for r in range(Tclass.ROUNDS):
     print(f"{Tclass.class1.__name__} is hunting {Tclass.class2.__name__}")
-    score1 += hunt(Tclass.class1, Tclass.class2, "red")
+    score2 += hunt(Tclass.class1, Tclass.class2, "red")
     print(f"{Tclass.class2.__name__} is hunting {Tclass.class1.__name__}")
-    score2 += hunt(Tclass.class2, Tclass.class1, "green")  # hunter class and prey class have switched roles now!
+    score1 += hunt(Tclass.class2, Tclass.class1, "green")  # hunter class and prey class have switched roles now!
     print(f"##### Score after round {r + 1}: {Tclass.class1.__name__}: {score1}    {Tclass.class2.__name__}: {score2} #####")
 # turtle.done()  # keeps the turtle window open after the program is done
